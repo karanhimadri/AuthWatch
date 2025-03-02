@@ -38,7 +38,7 @@ const register = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: email,
       subject: "Welcome to MERN Auth",
-      text: `Wealcome to MERN Authentication website. You successfully created your account with eamil ${email}`,
+      text: `Wealcome to MERN Authentication website. You successfully created your account with email ${email}`,
     };
     await transporter.sendMail(mailOptons);
 
@@ -79,10 +79,11 @@ const login = async (req, res) => {
     });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production", // `false` in development
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Use "lax" instead of "strict"
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
     return res
       .status(200)
       .json({ success: true, message: "logged in successfully" });
@@ -136,6 +137,7 @@ const sendVerifyOtp = async (req, res) => {
   });
 };
 
+// Verif email with otp
 const verifyEmail = async (req, res) => {
   const { userId, otp } = req.body;
   if (!userId || !otp) {
@@ -168,24 +170,23 @@ const verifyEmail = async (req, res) => {
   }
 };
 
-const isUserAuthenticated = async (req, res) => {
-  try {
-    return res.json({ success: true });
-  } catch (error) {
-    return res.json({ success: false, message: error.message });
-  }
-};
-
+// Check email and send and otp for reset password
 const sendResetOtp = async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
-    return res.json({ success: false, message: "Email is required." });
+    return res
+      .status(401)
+      .json({ success: false, message: "Email is required." });
   }
+
+  const normalizedEmail = email.toLowerCase();
   try {
-    const user = await userModel.findOne({ email: email });
+    const user = await userModel.findOne({ email: normalizedEmail });
     if (!user) {
-      return res.json({ success: false, message: "User not found." });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
     }
 
     const otp = String(Math.floor(100000 + Math.random() * 900000));
@@ -195,26 +196,33 @@ const sendResetOtp = async (req, res) => {
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
-      to: email,
+      to: normalizedEmail,
       subject: "Password Reset OTP",
       html: `<p>Your OTP is <b> ${otp} </b>. Use this for reset password. </p>`,
     };
     await transporter.sendMail(mailOptions);
-    return res.json({ success: true, message: "OTP send on your email." });
+    return res
+      .status(201)
+      .json({ success: true, message: "OTP send on your email." });
   } catch (error) {
-    return res.json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
-const resetPassword = async (req, res) => {
-  const { email, otp, newPassword } = req.body;
-  if (!email || !otp || !newPassword) {
-    return res.json({ success: false, message: "Missing Details" });
+// verify otp for Reset password
+const verifyResetPasswordOTP = async (req, res) => {
+  const { email, otp } = req.body;
+  if (!email || !otp) {
+    return res.status(400).json({ success: false, message: "Missing Details" });
   }
+  const normalizedEmail = email.toLowerCase();
+
   try {
-    const user = await userModel.findOne({ email: email });
+    const user = await userModel.findOne({ email: normalizedEmail });
     if (!user) {
-      return res.json({ success: false, message: "User not found." });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
     }
     if (user.resetOtp === "" || user.resetOtp !== otp) {
       return res.json({ success: false, message: "Invalid OTP." });
@@ -222,13 +230,63 @@ const resetPassword = async (req, res) => {
     if (user.resetOtpExpiredAt < Date.now()) {
       return res.json({ success: false, message: "OTP Expired." });
     }
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedPassword;
+
     user.resetOtp = "";
     user.resetOtpExpiredAt = 0;
     await user.save();
+
+    return res
+      .status(200)
+      .json({ success: true, message: "OTP Verification successfull" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// change the password
+const resetPassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+  if (!email || !newPassword) {
+    return res.json({ success: false, message: "Missing Details" });
+  }
+  const normalizedEmail = email.toLowerCase();
+
+  try {
+    const user = await userModel.findOne({ email: normalizedEmail });
+    if (!user) {
+      return res.json({ success: false, message: "User not found." });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    return res.status(200).json({ success: true, message: "password updated" });
   } catch (error) {
     return res.json({ success: false, message: error.message });
+  }
+};
+
+// Get user all details
+const getUserAuthDetails = async (req, res) => {
+  const { userId } = req.body;
+  if (!userId) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Missing details." });
+  }
+
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return { success: false, message: "User not found." };
+    }
+
+    return res.status(200).json({ success: true, userDetails: user });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error." });
   }
 };
 export {
@@ -237,7 +295,8 @@ export {
   logout,
   sendVerifyOtp,
   verifyEmail,
-  isUserAuthenticated,
   sendResetOtp,
-  resetPassword
+  resetPassword,
+  verifyResetPasswordOTP,
+  getUserAuthDetails,
 };

@@ -13,9 +13,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*", // Update as necessary for production
+    origin: ["http://localhost:5173"],
     methods: ["GET", "POST"],
-    credentials: true,
+    credentials: true, // Required for cookies
   })
 );
 
