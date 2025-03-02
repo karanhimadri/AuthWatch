@@ -13,9 +13,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [/^https:\/\/.*\.netlify\.app$/, "http://localhost:5173"],
     methods: ["GET", "POST"],
-    credentials: true, // Required for cookies
+    credentials: true,
   })
 );
 
@@ -31,6 +31,6 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 
 // Start Server
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
