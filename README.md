@@ -1,17 +1,30 @@
-# 🔐 MERN Authentication System
+# 🔐 MERN Authentication Microservice
 
-A robust, production-ready authentication system built with the MERN stack, featuring secure user registration, login, email verification, and password reset functionality.
+A robust, production-ready authentication microservice system built with the MERN stack, featuring secure user registration, login, email verification, and password reset functionality with complete **Swagger API Documentation**.
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black)
+
+## 📚 API Documentation
+
+**🚀 Interactive API Documentation**: [http://localhost:4000/api-docs](http://localhost:4000/api-docs)
+
+Complete Swagger UI documentation with:
+- Interactive API testing interface
+- Request/response schemas and examples
+- Authentication flow documentation
+- Error response details
+- Real-time API exploration
 
 ## ✨ Key Features
 
 - **Secure Authentication**: JWT-based authentication with HTTP-only cookies
 - **Email Verification**: OTP-based email verification system
 - **Password Reset**: Secure password reset with email OTP
+- **API Documentation**: Complete Swagger UI documentation
 - **Input Validation**: Comprehensive data validation and sanitization
 - **Security Best Practices**: bcrypt password hashing, CORS protection, secure headers
 - **Production Ready**: Environment-based configurations and error handling
@@ -26,6 +39,11 @@ A robust, production-ready authentication system built with the MERN stack, feat
 - **JWT** - Secure token-based authentication
 - **bcryptjs** - Password hashing and validation
 - **Nodemailer** - Email service integration
+
+### Documentation & Testing
+- **Swagger UI** - Interactive API documentation
+- **swagger-jsdoc** - JSDoc to Swagger conversion
+- **swagger-ui-express** - Swagger UI middleware
 
 ### Security & Middleware
 - **CORS** - Cross-origin resource sharing
@@ -62,7 +80,8 @@ GET  /api/auth/get-user-details  # Get authenticated user details
 server/
 ├── config/
 │   ├── mongodb.js      # Database configuration
-│   └── nodemailer.js   # Email service setup
+│   ├── nodemailer.js   # Email service setup
+│   └── swagger.js      # Swagger documentation config
 ├── controllers/
 │   └── authController.js # Authentication logic
 ├── middleware/
@@ -70,7 +89,7 @@ server/
 ├── models/
 │   └── userModel.js    # User schema and model
 ├── routes/
-│   └── authRoute.js    # API route definitions
+│   └── authRoute.js    # API route definitions with Swagger docs
 └── server.js           # Application entry point
 ```
 
@@ -91,15 +110,22 @@ server/
    ```bash
    # Create .env file with:
    PORT=4000
-   MONGODB_URI=your_mongodb_connection_string
+   MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/mearn-auth
    JWT_SECRET=your_jwt_secret_key
-   SENDER_EMAIL=your_email@gmail.com
-   SENDER_PASSWORD=your_app_password
+   NODE_ENV=development
+   SENDER_EMAIL=your_email@example.com
+   SMTP_USER=your_smtp_user@smtp-provider.com
+   SMTP_PASS=your_smtp_password
    ```
 
 4. **Start the server**
    ```bash
    npm start
+   ```
+
+5. **Access API Documentation**
+   ```
+   Open your browser and visit: http://localhost:4000/api-docs
    ```
 
 ## 🎯 Professional Highlights

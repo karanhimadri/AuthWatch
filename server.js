@@ -4,6 +4,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/mongodb.js";
 import authRoutes from "./routes/authRoute.js";
+import { swaggerUi, specs } from "./config/swagger.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -26,6 +27,12 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("API is working.");
 });
+
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "MERN Auth API Documentation"
+}));
 
 // Auth API
 app.use("/api/auth", authRoutes);
