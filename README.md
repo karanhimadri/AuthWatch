@@ -6,8 +6,8 @@
 	<tr>
 		<td><img src="./screenshots/logo.png" alt="Project Logo" width="80"/></td>
 		<td>
-			<h1>MERN Auth Microservice</h1>
-			<em>Secure, Scalable, Production-Ready Authentication API</em>
+			<h1>AuthWatch</h1>
+			<em>Secure MERN Authentication Microservice with Prometheus & Grafana Monitoring.</em>
 		</td>
 	</tr>
 </table>
