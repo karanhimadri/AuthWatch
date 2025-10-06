@@ -5,17 +5,22 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'MERN Authentication API',
+      title: 'MERN Authentication API Documentation',
       version: '1.0.0',
-      description: 'A comprehensive authentication microservice with user registration, login, email verification, and password reset functionality.',
+      description: 'Secure MERN authentication API with user registration, email verification, JWT login, and password reset functionality.',
       contact: {
         name: 'API Support',
         email: 'support@example.com',
       },
+      license: {
+        name: 'MIT',
+        url: 'https://opensource.org/licenses/MIT',
+      },
+      termsOfService: 'https://yourdomain.com/terms',
     },
     servers: [
       {
-        url: 'http://localhost:4000',
+        url: 'http://localhost:5000',
         description: 'Development server',
       },
       {
@@ -29,206 +34,104 @@ const options = {
           type: 'apiKey',
           in: 'cookie',
           name: 'token',
-          description: 'JWT token stored in HTTP-only cookie',
         },
       },
       schemas: {
         User: {
           type: 'object',
           properties: {
-            _id: {
-              type: 'string',
-              description: 'User ID',
-            },
-            name: {
-              type: 'string',
-              description: 'User full name',
-            },
-            email: {
-              type: 'string',
-              format: 'email',
-              description: 'User email address',
-            },
-            isAccountVerified: {
-              type: 'boolean',
-              description: 'Whether the user account is verified',
-            },
+            _id: { type: 'string', example: '64f1a2b3c4d5e6f7g8h9i0j1' },
+            name: { type: 'string', example: 'John Doe' },
+            email: { type: 'string', format: 'email', example: 'john.doe@example.com' },
+            isAccountVerified: { type: 'boolean', example: true },
           },
         },
         UserRegistration: {
           type: 'object',
           required: ['name', 'email', 'password'],
           properties: {
-            name: {
-              type: 'string',
-              description: 'User full name',
-              example: 'John Doe',
-            },
-            email: {
-              type: 'string',
-              format: 'email',
-              description: 'User email address',
-              example: 'john.doe@example.com',
-            },
-            password: {
-              type: 'string',
-              minLength: 6,
-              description: 'User password',
-              example: 'password123',
-            },
+            name: { type: 'string', minLength: 2, example: 'John Doe' },
+            email: { type: 'string', format: 'email', example: 'john.doe@example.com' },
+            password: { type: 'string', minLength: 6, example: 'password123' },
           },
         },
         UserLogin: {
           type: 'object',
           required: ['email', 'password'],
           properties: {
-            email: {
-              type: 'string',
-              format: 'email',
-              description: 'User email address',
-              example: 'john.doe@example.com',
-            },
-            password: {
-              type: 'string',
-              description: 'User password',
-              example: 'password123',
-            },
+            email: { type: 'string', format: 'email', example: 'john.doe@example.com' },
+            password: { type: 'string', example: 'password123' },
           },
         },
         OTPRequest: {
           type: 'object',
           required: ['userId'],
           properties: {
-            userId: {
-              type: 'string',
-              description: 'User ID',
-              example: '64f1a2b3c4d5e6f7g8h9i0j1',
-            },
+            userId: { type: 'string', example: '64f1a2b3c4d5e6f7g8h9i0j1' },
           },
         },
         VerifyEmail: {
           type: 'object',
           required: ['userId', 'otp'],
           properties: {
-            userId: {
-              type: 'string',
-              description: 'User ID',
-              example: '64f1a2b3c4d5e6f7g8h9i0j1',
-            },
-            otp: {
-              type: 'string',
-              description: '6-digit OTP',
-              example: '123456',
-            },
+            userId: { type: 'string', example: '64f1a2b3c4d5e6f7g8h9i0j1' },
+            otp: { type: 'string', minLength: 6, maxLength: 6, example: '123456' },
           },
         },
         ResetOTPRequest: {
           type: 'object',
           required: ['email'],
           properties: {
-            email: {
-              type: 'string',
-              format: 'email',
-              description: 'User email address',
-              example: 'john.doe@example.com',
-            },
+            email: { type: 'string', format: 'email', example: 'john.doe@example.com' },
           },
         },
         VerifyResetOTP: {
           type: 'object',
           required: ['email', 'otp'],
           properties: {
-            email: {
-              type: 'string',
-              format: 'email',
-              description: 'User email address',
-              example: 'john.doe@example.com',
-            },
-            otp: {
-              type: 'string',
-              description: '6-digit OTP',
-              example: '123456',
-            },
+            email: { type: 'string', format: 'email', example: 'john.doe@example.com' },
+            otp: { type: 'string', minLength: 6, maxLength: 6, example: '123456' },
           },
         },
         ResetPassword: {
           type: 'object',
           required: ['email', 'newPassword'],
           properties: {
-            email: {
-              type: 'string',
-              format: 'email',
-              description: 'User email address',
-              example: 'john.doe@example.com',
-            },
-            newPassword: {
-              type: 'string',
-              minLength: 6,
-              description: 'New password',
-              example: 'newpassword123',
-            },
+            email: { type: 'string', format: 'email', example: 'john.doe@example.com' },
+            newPassword: { type: 'string', minLength: 6, example: 'newpassword123' },
           },
         },
         SuccessResponse: {
           type: 'object',
           properties: {
-            success: {
-              type: 'boolean',
-              example: true,
-            },
-            message: {
-              type: 'string',
-              example: 'Operation completed successfully',
-            },
+            success: { type: 'boolean', example: true },
+            message: { type: 'string', example: 'Operation completed successfully' },
           },
         },
         ErrorResponse: {
           type: 'object',
           properties: {
-            success: {
-              type: 'boolean',
-              example: false,
-            },
-            message: {
-              type: 'string',
-              example: 'Error message',
-            },
+            success: { type: 'boolean', example: false },
+            message: { type: 'string', example: 'Error message' },
           },
         },
         UserDetailsResponse: {
           type: 'object',
           properties: {
-            success: {
-              type: 'boolean',
-              example: true,
-            },
-            userDetails: {
-              $ref: '#/components/schemas/User',
-            },
+            success: { type: 'boolean', example: true },
+            userDetails: { $ref: '#/components/schemas/User' },
           },
         },
       },
     },
     tags: [
-      {
-        name: 'Authentication',
-        description: 'User authentication endpoints',
-      },
-      {
-        name: 'Email Verification',
-        description: 'Email verification related endpoints',
-      },
-      {
-        name: 'Password Reset',
-        description: 'Password reset functionality',
-      },
-      {
-        name: 'User Management',
-        description: 'User profile and details management',
-      },
+      { name: 'Authentication', description: 'User authentication endpoints' },
+      { name: 'Email Verification', description: 'Email verification with OTP' },
+      { name: 'Password Reset', description: 'Password reset functionality' },
+      { name: 'User Management', description: 'User profile management' },
     ],
   },
-  apis: ['./routes/*.js', './controllers/*.js'], // Path to the API files
+  apis: ['./routes/*.js', './controllers/*.js'], // Paths to scan for JSDoc comments
 };
 
 const specs = swaggerJsdoc(options);

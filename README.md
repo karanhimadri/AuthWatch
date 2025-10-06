@@ -1,149 +1,221 @@
-# 🔐 MERN Authentication Microservice
+# MERN Authentication Microservice
 
-A robust, production-ready authentication microservice system built with the MERN stack, featuring secure user registration, login, email verification, and password reset functionality with complete **Swagger API Documentation**.
+<div align="center">
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
-![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black)
+<table>
+	<tr>
+		<td><img src="./screenshots/logo.png" alt="Project Logo" width="80"/></td>
+		<td>
+			<h1>MERN Auth Microservice</h1>
+			<em>Secure, Scalable, Production-Ready Authentication API</em>
+		</td>
+	</tr>
+</table>
 
-## 📚 API Documentation
+**A robust authentication microservice for modern web applications, featuring JWT, email verification, password reset, and monitoring.**
 
-**🚀 Interactive API Documentation**: [http://localhost:4000/api-docs](http://localhost:4000/api-docs)
+[![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?logo=mongodb)](https://mongodb.com/)
+[![JWT](https://img.shields.io/badge/JWT-Auth-ffb400?logo=jsonwebtokens)](https://jwt.io/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
+[![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-E6522C?logo=prometheus)](https://prometheus.io/)
+[![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana)](https://grafana.com/)
+[![Swagger](https://img.shields.io/badge/Swagger-UI-85EA2D?logo=swagger)](https://swagger.io/)
 
-Complete Swagger UI documentation with:
-- Interactive API testing interface
-- Request/response schemas and examples
-- Authentication flow documentation
-- Error response details
-- Real-time API exploration
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Architecture](#-architecture) • [Contributing](#-contributing)
 
-## ✨ Key Features
-
-- **Secure Authentication**: JWT-based authentication with HTTP-only cookies
-- **Email Verification**: OTP-based email verification system
-- **Password Reset**: Secure password reset with email OTP
-- **API Documentation**: Complete Swagger UI documentation
-- **Input Validation**: Comprehensive data validation and sanitization
-- **Security Best Practices**: bcrypt password hashing, CORS protection, secure headers
-- **Production Ready**: Environment-based configurations and error handling
-- **RESTful API**: Clean, well-structured API endpoints
-
-## 🛠️ Technical Stack
-
-### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web application framework
-- **MongoDB** - NoSQL database with Mongoose ODM
-- **JWT** - Secure token-based authentication
-- **bcryptjs** - Password hashing and validation
-- **Nodemailer** - Email service integration
-
-### Documentation & Testing
-- **Swagger UI** - Interactive API documentation
-- **swagger-jsdoc** - JSDoc to Swagger conversion
-- **swagger-ui-express** - Swagger UI middleware
-
-### Security & Middleware
-- **CORS** - Cross-origin resource sharing
-- **Cookie Parser** - Secure cookie handling
-- **Input Sanitization** - Email normalization and validation
-- **Environment Variables** - Secure configuration management
-
-## 🚀 API Endpoints
-
-```
-POST /api/auth/register          # User registration
-POST /api/auth/login             # User login
-POST /api/auth/logout            # User logout
-POST /api/auth/send-verify-otp   # Send email verification OTP
-POST /api/auth/verify-account    # Verify user email
-POST /api/auth/send-reset-otp    # Send password reset OTP
-POST /api/auth/verify-password-otp # Verify password reset OTP
-POST /api/auth/reset-password    # Reset user password
-GET  /api/auth/get-user-details  # Get authenticated user details
-```
-
-## 🔒 Security Features
-
-- **Password Hashing**: bcrypt with salt rounds for secure password storage
-- **JWT Authentication**: Secure token-based authentication with expiration
-- **HTTP-Only Cookies**: Prevents XSS attacks by making tokens inaccessible to JavaScript
-- **CORS Protection**: Configured for specific origins with credentials support
-- **Input Sanitization**: Email normalization and comprehensive validation
-- **Environment-based Security**: Production-ready security configurations
-
-## 🏗️ Project Structure
-
-```
-server/
-├── config/
-│   ├── mongodb.js      # Database configuration
-│   ├── nodemailer.js   # Email service setup
-│   └── swagger.js      # Swagger documentation config
-├── controllers/
-│   └── authController.js # Authentication logic
-├── middleware/
-│   └── userAuth.js     # JWT verification middleware
-├── models/
-│   └── userModel.js    # User schema and model
-├── routes/
-│   └── authRoute.js    # API route definitions with Swagger docs
-└── server.js           # Application entry point
-```
-
-## ⚡ Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/karanhimadri/MERN-Authentication.git
-   cd MERN-Authentication/server
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment setup**
-   ```bash
-   # Create .env file with:
-   PORT=4000
-   MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/mearn-auth
-   JWT_SECRET=your_jwt_secret_key
-   NODE_ENV=development
-   SENDER_EMAIL=your_email@example.com
-   SMTP_USER=your_smtp_user@smtp-provider.com
-   SMTP_PASS=your_smtp_password
-   ```
-
-4. **Start the server**
-   ```bash
-   npm start
-   ```
-
-5. **Access API Documentation**
-   ```
-   Open your browser and visit: http://localhost:4000/api-docs
-   ```
-
-## 🎯 Professional Highlights
-
-- **Scalable Architecture**: Modular design following MVC pattern
-- **Production Deployment**: Docker containerization and environment configurations
-- **Code Quality**: Clean, maintainable code with proper error handling
-- **Security First**: Implementation of industry-standard security practices
-- **API Design**: RESTful endpoints with consistent response formatting
-
-## 📧 Contact
-
-**Karan Himadri**  
-Full Stack Developer  
-📧 [karanhimadri@email.com](mailto:karanhimadri@email.com)  
-🔗 [LinkedIn](https://linkedin.com/in/karanhimadri)  
-🐱 [GitHub](https://github.com/karanhimadri)
+</div>
 
 ---
 
-*This project demonstrates proficiency in modern web development practices, secure authentication implementation, and full-stack development capabilities.*
+## 📋 Overview
+
+**MERN Auth Microservice** is a production-ready authentication backend for web and mobile apps. It provides secure user registration, login, JWT-based sessions, email verification, password reset, and exposes metrics for monitoring. Built with Node.js, Express, and MongoDB, it is containerized for easy deployment and comes with Swagger API docs.
+
+---
+
+## 📸 Screenshots
+
+<table width="100%">
+	<tr>
+		<td align="center" colspan="3">
+			<img src="./screenshots//swagger.png" style="width:100%;" alt="Swagger API Docs"/><br/>
+			<b>API Documentation</b><br/>
+			<sub>Interactive Swagger UI for all endpoints</sub>
+		</td>
+	</tr>
+	<tr>
+  <td align="center" width="50%">
+    <img src="./screenshots/metrics.png" 
+         alt="Prometheus Metrics"
+         style="width:100%; height:250px; object-fit:cover; border-radius:6px;" /><br/>
+    <b>Prometheus & Grafana Dashboards</b><br/>
+    <sub>Real-time monitoring endpoint</sub>
+  </td>
+  <td align="center" width="50%">
+    <img src="./screenshots/auth_architech.png" 
+         alt="Auth Flow"
+         style="width:100%; height:250px; object-fit:cover; border-radius:6px;" /><br/>
+    <b>Authentication Flow</b><br/>
+    <sub>JWT, Email Verification, Password Reset, Monitoring</sub>
+  </td>
+</tr>
+</table>
+
+---
+
+## 🌟 Features
+
+### Authentication
+- **JWT-based Login** — Secure, stateless sessions
+- **User Registration** — With hashed passwords
+- **Email Verification** — OTP-based, with expiry
+- **Password Reset** — Multi-step, OTP-protected
+- **Logout** — Secure session termination
+
+### Security
+- **HTTP-only Cookies** — Prevent XSS attacks
+- **Bcrypt Password Hashing** — 10 salt rounds
+- **Environment-based Cookie Security** — SameSite, Secure flags
+- **Input Validation** — Required fields, email normalization
+
+### Monitoring & Observability
+- **Prometheus Metrics** — System and custom HTTP request metrics
+- **Grafana Ready** — For dashboard visualization
+
+### Developer Experience
+- **Swagger UI** — Interactive API documentation
+- **Dockerized** — Easy deployment anywhere
+- **Modular Codebase** — Clean separation of concerns
+
+---
+
+## 🎯 Use Cases
+
+- **User Authentication Service** for any web/mobile app
+- **Microservice in a larger architecture**
+- **API Gateway Auth Layer**
+- **Production-ready Auth for SaaS**
+- **Learning/Reference for secure Node.js auth**
+
+---
+
+## 🛠 Tech Stack
+
+### Backend
+| Technology      | Purpose                                 |
+|-----------------|-----------------------------------------|
+| Express.js      | Backend Framework                       |
+| MongoDB 6       | NoSQL database                          |
+| Mongoose        | MongoDB ODM                             |
+| JWT             | Token-based authentication              |
+| bcryptjs        | Password hashing                        |
+| Nodemailer      | Email sending (SMTP)                    |
+| dotenv          | Environment variable management         |
+| cookie-parser   | Cookie parsing                          |
+| cors            | CORS configuration                      |
+| prom-client     | Prometheus metrics                      |
+| swagger-jsdoc   | API documentation generation            |
+
+### DevOps
+| Technology      | Purpose                                 |
+|-----------------|-----------------------------------------|>
+| Docker          | Containerization                        |
+| Prometheus      | Monitoring                              |
+| Grafana         | Metrics visualization                   |
+
+---
+
+## 🏗 Architecture
+
+```
+┌──────────────────────────────────────────────┐
+│                Client (Frontend)             │
+│      (Any web/mobile app, Postman, etc.)     │
+└──────────────────────────────────────────────┘
+								│      HTTPS/REST
+								▼
+┌──────────────────────────────────────────────┐
+│        MERN Auth Microservice (Node.js)      │
+│ ┌──────────────┐  ┌──────────────┐           │
+│ │  Express.js  │  │  Prometheus  │           │
+│ │  API Server  │  │  Metrics     │           │
+│ └──────────────┘  └──────────────┘           │
+│        │                │                    │
+│        ▼                ▼                    │
+│   MongoDB Atlas   /metrics endpoint          │
+└──────────────────────────────────────────────┘
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** (v18 or higher)
+- **npm**
+- **MongoDB** (local or Atlas)
+
+### Installation
+
+1. **Clone the repository**
+	 ```bash
+	 git clone https://github.com/karanhimadri/mern-authentication-microservice.git
+	 cd mern-authentication-microservice/server
+	 ```
+
+2. **Install dependencies**
+	 ```bash
+	 npm install
+	 ```
+
+3. **Configure environment variables**
+	 - Copy `.env.example` to `.env` and fill in your values:
+		 ```env
+		 MONGO_URI=your_mongodb_connection_string
+		 JWT_SECRET=your_jwt_secret
+		 SMTP_USER=your_smtp_user
+		 SMTP_PASS=your_smtp_pass
+		 SENDER_EMAIL=your_email@example.com
+		 NODE_ENV=development
+		 PORT=4000
+		 ```
+
+### Running the Application
+
+```bash
+npm start
+# Server runs on http://localhost:4000
+```
+
+### Docker
+
+```bash
+docker build -t mern-auth-microservice .
+docker run -p 8080:4000 --env-file .env mern-auth-microservice
+# App will be available at http://localhost:8080
+```
+
+---
+
+## 👨‍💻 Developer Profile
+
+**Himadri Karan**  
+*Backend Developer & Business Solutions Specialist*
+
+- 📧 **Email**: [Karanhimadri1234@gmail.com](mailto:Karanhimadri1234@gmail.com)
+- 💼 **LinkedIn**: [linkedin.com/in/himadrikaran](https://linkedin.com/in/himadrikaran)
+- 🌐 **Portfolio**: [Himadri.me](https://himadri.me/)
+- 🐙 **GitHub**: [github.com/karanhimadri](https://github.com/karanhimadri)
+
+---
+
+<div align="center">
+
+**Made with ❤️ and lots of ☕**
+
+If you found this project helpful, please give it a ⭐️!
+
+</div>
