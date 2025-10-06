@@ -7,7 +7,7 @@
 		<td><img src="./screenshots/logo.png" alt="Project Logo" width="80"/></td>
 		<td>
 			<h1>AuthWatch</h1>
-			<em>Secure MERN Authentication Microservice with Prometheus & Grafana Monitoring.</em>
+			<em>Secure. Scalable. Observable.</em>
 		</td>
 	</tr>
 </table>
