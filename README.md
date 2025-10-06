@@ -107,20 +107,17 @@
 | Technology      | Purpose                                 |
 |-----------------|-----------------------------------------|
 | Express.js      | Backend Framework                       |
-| MongoDB 6       | NoSQL database                          |
+| MongoDB         | NoSQL database                          |
 | Mongoose        | MongoDB ODM                             |
 | JWT             | Token-based authentication              |
 | bcryptjs        | Password hashing                        |
 | Nodemailer      | Email sending (SMTP)                    |
-| dotenv          | Environment variable management         |
-| cookie-parser   | Cookie parsing                          |
-| cors            | CORS configuration                      |
 | prom-client     | Prometheus metrics                      |
 | swagger-jsdoc   | API documentation generation            |
 
 ### DevOps
 | Technology      | Purpose                                 |
-|-----------------|-----------------------------------------|>
+|-----------------|-----------------------------------------|
 | Docker          | Containerization                        |
 | Prometheus      | Monitoring                              |
 | Grafana         | Metrics visualization                   |
