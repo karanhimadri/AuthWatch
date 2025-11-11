@@ -21,7 +21,8 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
 [![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-E6522C?logo=prometheus)](https://prometheus.io/)
 [![Grafana](https://img.shields.io/badge/Grafana-Dashboard-F46800?logo=grafana)](https://grafana.com/)
-[![Swagger](https://img.shields.io/badge/Swagger-UI-85EA2D?logo=swagger)](https://swagger.io/)
+[![Jest](https://img.shields.io/badge/Jest-Testing-C21325?logo=jest)](https://jestjs.io/)
+[![Supertest](https://img.shields.io/badge/Supertest-API%20Testing-green)](https://github.com/visionmedia/supertest)
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Architecture](#-architecture) • [Contributing](#-contributing)
 
@@ -31,7 +32,7 @@
 
 ## 📋 Overview
 
-**MERN Auth Microservice** is a production-ready authentication backend for web and mobile apps. It provides secure user registration, login, JWT-based sessions, email verification, password reset, and exposes metrics for monitoring. Built with Node.js, Express, and MongoDB, it is containerized for easy deployment and comes with Swagger API docs.
+**MERN Auth Microservice** is a production-ready authentication backend for web and mobile apps. It provides secure user registration, login, JWT-based sessions, email verification, password reset, and exposes metrics for monitoring. Built with Node.js, Express, and MongoDB, it includes comprehensive test coverage with Jest and Supertest, and is containerized for easy deployment.
 
 ---
 
@@ -84,8 +85,13 @@
 - **Prometheus Metrics** — System and custom HTTP request metrics
 - **Grafana Ready** — For dashboard visualization
 
+### Testing
+- **Jest Test Suite** — Comprehensive unit and integration tests
+- **Supertest** — HTTP API endpoint testing
+- **MongoDB Memory Server** — In-memory database for testing
+- **Test Coverage** — Authentication flows and endpoints
+
 ### Developer Experience
-- **Swagger UI** — Interactive API documentation
 - **Dockerized** — Easy deployment anywhere
 - **Modular Codebase** — Clean separation of concerns
 
@@ -113,7 +119,13 @@
 | bcryptjs        | Password hashing                        |
 | Nodemailer      | Email sending (SMTP)                    |
 | prom-client     | Prometheus metrics                      |
-| swagger-jsdoc   | API documentation generation            |
+
+### Testing
+| Technology      | Purpose                                 |
+|-----------------|-----------------------------------------|
+| Jest            | Testing framework                       |
+| Supertest       | HTTP assertion library                  |
+| MongoDB Memory Server | In-memory MongoDB for testing     |
 
 ### DevOps
 | Technology      | Purpose                                 |
@@ -186,6 +198,24 @@
 npm start
 # Server runs on http://localhost:4000
 ```
+
+### Testing
+
+Run the test suite to ensure everything is working correctly:
+
+```bash
+npm test
+# Runs all tests with Jest
+```
+
+The test suite includes:
+- **Unit Tests**: Authentication controller functions
+- **Integration Tests**: API endpoint testing with Supertest
+- **Mocked Services**: Email service, JWT, and database operations
+
+Test files are located in the `/test` directory:
+- `auth.test.js` - Authentication endpoint tests
+- `app.test.js` - Application setup tests
 
 ### Docker
 
