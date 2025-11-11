@@ -1,14 +1,15 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import userModel from "../models/userModel.js";
-import transporter from "../config/nodemailer.js";
+// controllers/authController
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const userModel = require("../models/userModel");
+const transporter = require("../config/nodemailer");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
+
+  if (!name || !email || !password) return res.status(400).json({ success: false, message: "Missing Details" });
   const normalizedEmail = email.toLowerCase();
-  if (!name || !normalizedEmail || !password) {
-    return res.status(400).json({ success: false, message: "Missing Details" });
-  }
+
   try {
     const isUserExists = await userModel.findOne({ email: normalizedEmail });
     if (isUserExists) {
@@ -22,7 +23,9 @@ const register = async (req, res) => {
       email: normalizedEmail,
       password: hashedPassword,
     });
+
     await user.save();
+
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
@@ -55,13 +58,15 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const normalizedEmail = email.toLowerCase();
-  if (!normalizedEmail || !password) {
+
+  if (!email || !password) {
     return res.status(400).json({
       success: false,
-      message: "email and password are required",
+      message: "email and password are required.",
     });
   }
+  const normalizedEmail = email.toLowerCase();
+
   try {
     const user = await userModel.findOne({ email: normalizedEmail });
     if (!user) {
@@ -69,6 +74,7 @@ const login = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Invalid credentials" });
     }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res
@@ -78,6 +84,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // `false` in development
@@ -290,7 +297,8 @@ const getUserAuthDetails = async (req, res) => {
       .json({ success: false, message: "Internal server error." });
   }
 };
-export {
+
+module.exports = {
   register,
   login,
   logout,
@@ -301,3 +309,4 @@ export {
   verifyResetPasswordOTP,
   getUserAuthDetails,
 };
+

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
 
 const userModel = mongoose.models.user || mongoose.model("user", userSchema);
 
-export default userModel;
+module.exports = userModel;
 
 // mongoose.models.user: Prevents model re-registration (useful in Next.js and hot-reloading environments).
 // mongoose.model("user", userSchema): Registers the model if it doesn't already exist
+
